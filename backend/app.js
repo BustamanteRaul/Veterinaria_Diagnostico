@@ -12,20 +12,6 @@ app.use(
   })
 );
 
-app.use(express.json());
-// Configurar la sesión
-app.use(
-  session({
-    secret: "secretkey123",
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      secure: false, 
-      maxAge: 1000 * 60 * 60 * 24, 
-    },
-  })
-);
-
 // abrir el servidor
 app.listen(3000, () => {
   console.log("Servidor corriendo en http://localhost:3000");
