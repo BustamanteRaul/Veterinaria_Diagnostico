@@ -61,6 +61,35 @@ function deleteVisit(req, res, next) {
   });
 }
 
+function createVisit(req, res, next) {
+  const { pet_id, visit_date, reason, notes } = req.body;
+  const sql = "INSERT INTO visit (pet_id, visit_date, reason, notes) VALUES (?, ?, ?, ?)";
+  
+  connection.query(sql, [pet_id, visit_date, reason, notes], (err, result) => {
+    if (err) return next(err);
+    
+    req.visit = { id_visit: result.insertId, pet_id, visit_date, reason, notes };
+    next();
+  });
+}
+
+function updateVisit(req, res, next) {
+  const VisitId = req.params.id;
+  const { pet_id, visit_date, reason, notes } = req.body;
+  const sql = "UPDATE visit SET pet_id = ?, visit_date = ?, reason = ?, notes = ? WHERE id_visit = ?";
+  
+  connection.query(sql, [pet_id, visit_date, reason, notes, VisitId], (error, results) => {
+    if (error) {
+      return next(error);
+    }
+    if (!results.affectedRows) {
+      return res.status(404).json({ error: 'Visit not found' });
+    }
+    req.visit = { id_visit: results.insertId, pet_id, visit_date, reason, notes };
+    next();
+  });
+}
+
 module.exports = {
   fetchVisits,
   fetchVisitById,

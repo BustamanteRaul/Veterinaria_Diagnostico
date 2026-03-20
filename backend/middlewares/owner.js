@@ -31,11 +31,12 @@ function createOwner(req, res, next) {
   connection.query(sql, [name, phone], (err, result) => {
     if (err) return next(err);
     
-    req.owner = { id_owner: result.insertId, name, email };
+    req.owner = { id_owner: result.insertId, name, phone, creation_date: result.creation_date };
     next();
   });
 }
 
+//revisar
 function updateOwner(req, res, next) {
   const { name, phone } = req.body;
   const OwnerId = req.params.id;
@@ -48,7 +49,7 @@ function updateOwner(req, res, next) {
       return res.status(404).json({ error: 'Owner not found' });
     }
     
-    req.owner = { id_owner: OwnerId, name, email };
+    req.owner = { id_owner: OwnerId, name, phone };
     next();
   });
 }

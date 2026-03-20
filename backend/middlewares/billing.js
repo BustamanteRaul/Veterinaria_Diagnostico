@@ -57,6 +57,35 @@ function deleteBill(req, res, next) {
   });
 }
 
+function createBill(req, res, next) {
+  const { visit_id, amount, payment_date, paid } = req.body;
+  const sql = "INSERT INTO billing (visit_id, amount, payment_date, paid) VALUES (?, ?, ?, ?)";
+
+  connection.query(sql, [visit_id, amount, payment_date, paid], (err, result) => {
+    if (err) return next(err);
+
+    req.bill = { id_payment: result.insertId, visit_id, amount, payment_date, paid };
+    next();
+  });
+}
+
+function updateBill(req, res, next) {
+  const BillId = req.params.id;
+  const { visit_id, amount, payment_date, paid } = req.body;
+  const sql = "UPDATE billing SET visit_id = ?, amount = ?, payment_date = ?, paid = ? WHERE id_payment = ?";
+
+  connection.query(sql, [visit_id, amount, payment_date, paid, BillId], (error, results) => {
+    if (error) {
+      return next(error);
+    }
+    if (!results.affectedRows) {
+      return res.status(404).json({ error: 'Payment not found' });
+    }
+    req.bill = { id_payment: results.insertId, visit_id, amount, payment_date, paid };
+    next();
+  });
+}
+
 function respondWithBill(req, res) {
   res.json(req.bill);
 }
