@@ -1,7 +1,6 @@
 import OwnerCard from "../../components/Cards/OwnerCard/owner_card";
 import "./owner.css";
 import axios from "axios";
-
 import type { Owner } from "../../types/owners";
 import { useEffect, useState } from "react";
 
@@ -25,10 +24,14 @@ export default function Owner() {
 
   return (
     <>
-      <h1>Owners</h1>
-      <div className="OwnersList">
+      <div className="flex flex-wrap align-items-center justify-center gap-10 max-h-screen overflow-y-auto">
         {data.map((owner) => (
-          <OwnerCard key={owner.id_owner} owner={owner} />
+          <OwnerCard
+            key={owner.id_owner}
+            owner={owner}
+            onDeleted={fetchOwners}  
+            onEdited={fetchOwners}   
+          />
         ))}
       </div>
     </>
