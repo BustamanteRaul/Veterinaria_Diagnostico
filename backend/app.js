@@ -8,10 +8,10 @@ app.use(express.json());
 // Conectar con el frontend
 app.use(
   cors({
-    origin: ["http://localhost:5173"], //puerto en donde react se aloja
+    origin: ["http://localhost:5174"], //puerto en donde react se aloja
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-  })
+  }),
 );
 
 // abrir el servidor

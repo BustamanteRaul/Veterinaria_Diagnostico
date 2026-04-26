@@ -21,18 +21,39 @@ export default function VisitCard({ visit, onDeleted, onEdited }: Props) {
     <div className="bg-white border border-gray-200 rounded-xl p-4 flex flex-col gap-4 m-3 w-55">
       {isEditing ? (
         <>
-          <input className="border border-gray-300 bg-pink-100 rounded-md px-3 py-1.5 text-sm" value={id_visit} onChange={(e) => setIdVisit(e.target.value)} />
-          <input className="border border-gray-300 bg-pink-100 rounded-md px-3 py-1.5 text-sm" value={pet_id} onChange={(e) => setPetId(e.target.value)} />
-          <input className="border border-gray-300 bg-pink-100 rounded-md px-3 py-1.5 text-sm" value={visit_date} onChange={(e) => setVisitDate(e.target.value)} />
-          <input className="border border-gray-300 bg-pink-100 rounded-md px-3 py-1.5 text-sm" value={reason} onChange={(e) => setReason(e.target.value)} />
-          <input className="border border-gray-300 bg-pink-100 rounded-md px-3 py-1.5 text-sm" value={notes} onChange={(e) => setNotes(e.target.value)} />
+          <input
+            className="border border-gray-300 bg-pink-100 rounded-md px-3 py-1.5 text-sm"
+            value={id_visit}
+            onChange={(e) => setIdVisit(e.target.value)}
+          />
+          <input
+            className="border border-gray-300 bg-pink-100 rounded-md px-3 py-1.5 text-sm"
+            value={pet_id}
+            onChange={(e) => setPetId(e.target.value)}
+          />
+          <input
+            type="date"
+            className="border border-gray-300 bg-pink-100 rounded-md px-3 py-1.5 text-sm"
+            value={visit_date}
+            onChange={(e) => setVisitDate(e.target.value)}
+          />
+          <input
+            className="border border-gray-300 bg-pink-100 rounded-md px-3 py-1.5 text-sm"
+            value={reason}
+            onChange={(e) => setReason(e.target.value)}
+          />
+          <input
+            className="border border-gray-300 bg-pink-100 rounded-md px-3 py-1.5 text-sm"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+          />
           <EditButton
             table="visit"
             id={visit.id_visit}
             updatedData={{ id_visit, pet_id, reason, notes }}
             onEdited={() => {
-              onEdited();           
-              setIsEditing(false);  
+              onEdited();
+              setIsEditing(false);
             }}
           />
           <button onClick={() => setIsEditing(false)}>Cancelar</button>

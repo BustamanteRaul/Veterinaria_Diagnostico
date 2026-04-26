@@ -4,4 +4,4 @@ export type Bill = {
   amount: number;
   payment_date: string;
   paid: boolean;
-}
+};

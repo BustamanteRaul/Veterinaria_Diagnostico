@@ -4,4 +4,4 @@ export type Visit = {
   visit_date: string;
   reason: string;
   notes: string;
-}
+};
